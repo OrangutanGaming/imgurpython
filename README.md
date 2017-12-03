@@ -1,5 +1,3 @@
-# The imgurpython project is no longer supported.
-
 imgurpython
 ===========
 
