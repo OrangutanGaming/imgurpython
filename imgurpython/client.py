@@ -171,7 +171,7 @@ class ImgurClient(object):
             raise ImgurClientError('Must be logged in to complete request.')
 
     # Account-related endpoints
-    def get_account(self, username):
+    def get_account_by_name(self, username):
         self.validate_user_context(username)
         account_data = self.make_request('GET', 'account/%s' % username)
 
@@ -183,6 +183,20 @@ class ImgurClient(object):
             account_data['created'],
             account_data['pro_expiration'],
         )
+
+
+    def get_account_by_id(self, userid):
+        account_data = self.make_request('GET', 'account/?account_id=%i' % userid)
+
+        return Account(
+            account_data['id'],
+            account_data['url'],
+            account_data['bio'],
+            account_data['reputation'],
+            account_data['created'],
+            account_data['pro_expiration'],
+        )
+
 
     def get_gallery_favorites(self, username, page=0):
         self.validate_user_context(username)
