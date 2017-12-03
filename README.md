@@ -27,7 +27,7 @@ The best way to reach out to Imgur for API support is emailing us at api@imgur.c
 Installation
 ------------
 
-    pip install git+https://github.com/OrangutanGaming/imgurpython
+    pip install -U git+https://github.com/OrangutanGaming/imgurpython
 
 Library Usage
 ------------
