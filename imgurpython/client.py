@@ -638,7 +638,7 @@ class ImgurClient(object):
         return self.make_request('DELETE', 'image/%s' % image_id)
     
     def update_image(self, image_id, fields):
-        post_data = {field: fields[field] for field in set({'title', 'description'}).intersection(fields.keys())}
+        post_data = {field: fields[field] for field in {{'title', 'description'}}.intersection(fields.keys())}
         return self.make_request('POST', 'image/%s' % image_id, data=post_data)
 
     def favorite_image(self, image_id):
