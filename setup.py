@@ -13,11 +13,11 @@ setup(
     # http://packaging.python.org/en/latest/tutorial.html#version
     version='1.1.8',
 
-    description='Official Imgur python library with OAuth2 and samples',
+    description='Fork of Imgur python library with OAuth2 and samples',
     long_description='',
 
     # The project's main homepage.
-    url='https://github.com/Imgur/imgurpython',
+    url='https://github.com/OrangutanGaming/imgurpython',
 
     # Author details
     author='Imgur Inc.',
