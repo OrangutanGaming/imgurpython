@@ -119,13 +119,13 @@ class ImgurClient(object):
 
         return headers
 
-
     def make_request(self, method, route, data=None, force_anon=False):
         method = method.lower()
         method_to_call = getattr(requests, method)
 
         header = self.prepare_headers(force_anon)
-        url = (MASHAPE_URL if self.mashape_key is not None else API_URL) + ('3/%s' % route if 'oauth2' not in route else route)
+        url = (MASHAPE_URL if self.mashape_key is not None else API_URL) + \
+              ('3/%s' % route if 'oauth2' not in route else route)
 
         if method in ('delete', 'get'):
             response = method_to_call(url, headers=header, params=data, data=data)
@@ -154,7 +154,7 @@ class ImgurClient(object):
 
         try:
             response_data = response.json()
-        except:
+        except ValueError:
             raise ImgurClientError('JSON decoding of response failed.')
 
         if 'data' in response_data and isinstance(response_data['data'], dict) and 'error' in response_data['data']:
@@ -184,7 +184,6 @@ class ImgurClient(object):
             account_data['pro_expiration'],
         )
 
-
     def get_account_by_id(self, userid):
         account_data = self.make_request('GET', 'account/?account_id=%i' % userid)
 
@@ -196,7 +195,6 @@ class ImgurClient(object):
             account_data['created'],
             account_data['pro_expiration'],
         )
-
 
     def get_gallery_favorites(self, username, page=0):
         self.validate_user_context(username)
@@ -233,7 +231,8 @@ class ImgurClient(object):
         )
 
     def change_account_settings(self, username, fields):
-        post_data = {setting: fields[setting] for setting in set(self.allowed_account_fields).intersection(fields.keys())}
+        post_data = {setting: fields[setting] for setting in
+                     set(self.allowed_account_fields).intersection(fields.keys())}
         return self.make_request('POST', 'account/%s/settings' % username, post_data)
 
     def get_email_verification_status(self, username):
