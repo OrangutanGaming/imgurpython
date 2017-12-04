@@ -74,6 +74,10 @@ class ImgurClient(object):
         'album', 'name', 'title', 'description'
     }
 
+    allowed_image_update_fields = {
+        'title', 'description'
+    }
+
     def __init__(self, client_id, client_secret, access_token=None, refresh_token=None, mashape_key=None):
         self.client_id = client_id
         self.client_secret = client_secret
@@ -642,9 +646,9 @@ class ImgurClient(object):
     def delete_image(self, image_id):
         return self.make_request('DELETE', 'image/%s' % image_id)
     
-    def update_image(self, image_id, fields):
-        post_data = {field: fields[field] for field in {{'title', 'description'}}.intersection(fields.keys())}
-        return self.make_request('POST', 'image/%s' % image_id, data=post_data)
+    def update_image(self, image_id, config):
+        data = {meta: config[meta] for meta in set(self.allowed_image_update_fields).intersection(config.keys())}
+        return self.make_request('POST', 'image/%s' % image_id, data)
 
     def favorite_image(self, image_id):
         self.logged_in()
