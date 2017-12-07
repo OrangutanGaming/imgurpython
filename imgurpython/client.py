@@ -725,7 +725,7 @@ class ImgurClient(object):
         topics = self.make_request('GET', 'topics/defaults')
         return [Topic(topic) for topic in topics]
 
-    def gallery_topic(self, topic_id, sort='viral', page=0, windown='week'):
+    def gallery_topic(self, topic_id, sort='viral', page=0, window='week'):
         if sort == 'top':
             response = self.make_request('GET', 'topics/%s/%s/%s/%d' % (topic_id, sort, window, page))
         else:
